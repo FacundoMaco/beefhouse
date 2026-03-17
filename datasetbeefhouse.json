@@ -1,0 +1,19 @@
+[
+    {"plato":"BBQ Burger","categoria":"Burgers","precio":23,"costo":12,"ventas":180},
+    {"plato":"Cheese Burger","categoria":"Burgers","precio":21,"costo":11,"ventas":140},
+    {"plato":"Monster Burger","categoria":"Burgers","precio":28,"costo":18,"ventas":60},
+    {"plato":"Blue Cheese Burger","categoria":"Burgers","precio":25,"costo":14,"ventas":70},
+    {"plato":"A lo Pobre","categoria":"Burgers","precio":26,"costo":16,"ventas":55},
+  
+    {"plato":"Buffalo Wings","categoria":"Piqueos","precio":25,"costo":18,"ventas":200},
+    {"plato":"BBQ Wings","categoria":"Piqueos","precio":25,"costo":17,"ventas":160},
+    {"plato":"Tequeños de Lomo","categoria":"Piqueos","precio":29,"costo":15,"ventas":90},
+    {"plato":"Piqueo Beef","categoria":"Piqueos","precio":62,"costo":40,"ventas":30},
+    {"plato":"Carpaccio","categoria":"Piqueos","precio":33,"costo":20,"ventas":25},
+  
+    {"plato":"Costillas","categoria":"Grill","precio":59,"costo":35,"ventas":85},
+    {"plato":"Punta de Cadera","categoria":"Grill","precio":36,"costo":20,"ventas":120},
+    {"plato":"Pulpo Parrilla","categoria":"Grill","precio":35,"costo":22,"ventas":40},
+    {"plato":"Parrilla 2 Personas","categoria":"Grill","precio":69,"costo":45,"ventas":35},
+    {"plato":"Parrilla 4 Personas","categoria":"Grill","precio":98,"costo":70,"ventas":20}
+  ]

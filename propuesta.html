@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Propuesta Operativa — Beef House</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface-2: #161616;
+      --border: #1f1f1f;
+      --border-light: #2a2a2a;
+      --text: #f0f0f0;
+      --text-muted: #888;
+      --text-dim: #555;
+      --accent: #d4a853;
+      --accent-soft: rgba(212, 168, 83, 0.08);
+      --accent-border: rgba(212, 168, 83, 0.2);
+      --green: #22c55e;
+      --green-soft: rgba(34, 197, 94, 0.07);
+      --red: #ef4444;
+      --red-soft: rgba(239, 68, 68, 0.07);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    /* ─── TYPOGRAPHY ─── */
+    .label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+
+    h2 {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    p { color: var(--text-muted); line-height: 1.75; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding: 120px 0 96px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--green);
+      background: var(--green-soft);
+      border: 1px solid rgba(34, 197, 94, 0.15);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 36px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    #hero h1 { margin-bottom: 24px; }
+
+    #hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 56px;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hero-meta-item strong {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-meta-item span {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    /* ─── PROBLEMA ─── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 44px;
+    }
+
+    .problem-item {
+      padding: 28px 24px;
+      background: var(--surface);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .problem-item:nth-child(1) { border-radius: var(--radius) 0 0 0; }
+    .problem-item:nth-child(2) { border-radius: 0 var(--radius) 0 0; border-left: none; }
+    .problem-item:nth-child(3) { border-radius: 0 0 0 var(--radius); border-top: none; }
+    .problem-item:nth-child(4) { border-radius: 0 0 var(--radius) 0; border-left: none; border-top: none; }
+
+    .problem-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .problem-item p { font-size: 13px; line-height: 1.55; }
+
+    .problem-item strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    /* ─── DEMO ─── */
+    .demo-cards {
+      margin-top: 44px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .demo-card {
+      padding: 28px 32px;
+      background: var(--surface);
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .demo-card + .demo-card { border-top: 1px solid var(--border); }
+
+    .demo-number {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .demo-card h3 { font-size: 15px; margin-bottom: 5px; }
+    .demo-card p { font-size: 14px; }
+
+    /* ─── VALOR ─── */
+    .value-list {
+      margin-top: 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .value-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 26px 28px;
+      background: var(--surface);
+      transition: background 0.15s;
+    }
+
+    .value-item + .value-item { border-top: 1px solid var(--border); }
+    .value-item:hover { background: var(--surface-2); }
+
+    .value-arrow {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--accent);
+    }
+
+    .value-item h3 { font-size: 15px; margin-bottom: 4px; }
+    .value-item p { font-size: 14px; }
+
+    /* ─── ALCANCE ─── */
+    .phase-block {
+      margin-top: 44px;
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .phase-header {
+      padding: 18px 28px;
+      background: var(--accent-soft);
+      border-bottom: 1px solid var(--accent-border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .phase-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .phase-header h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .phase-items { padding: 8px 0; background: var(--surface); }
+
+    .phase-item {
+      padding: 13px 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .phase-item + .phase-item { border-top: 1px solid var(--border); }
+
+    .phase-item::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ─── INCLUDES / EXCLUDES ─── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 44px;
+    }
+
+    .include-block, .exclude-block {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .block-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .include-block .block-header { background: var(--green-soft); }
+    .exclude-block .block-header { background: var(--red-soft); }
+
+    .block-header h3 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .include-block .block-header h3 { color: var(--green); }
+    .exclude-block .block-header h3 { color: var(--red); }
+
+    .block-list {
+      list-style: none;
+      background: var(--surface);
+    }
+
+    .block-list li {
+      padding: 12px 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.45;
+    }
+
+    .block-list li + li { border-top: 1px solid var(--border); }
+
+    .include-block .block-list li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .exclude-block .block-list li::before {
+      content: '○';
+      color: var(--red);
+      flex-shrink: 0;
+    }
+
+    /* ─── ROADMAP ─── */
+    .roadmap-track {
+      margin-top: 44px;
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .roadmap-track::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .roadmap-item {
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .roadmap-item:last-child { margin-bottom: 0; }
+
+    .roadmap-item::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 2px solid var(--bg);
+    }
+
+    .roadmap-item.now::before { background: var(--accent); }
+
+    .roadmap-phase {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .roadmap-item.now .roadmap-phase { color: var(--accent); }
+
+    .roadmap-item h3 { font-size: 15px; margin-bottom: 4px; }
+    .roadmap-item p { font-size: 13px; }
+
+    /* ─── ROI ─── */
+    .roi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 44px;
+    }
+
+    .roi-card {
+      padding: 36px 24px;
+      background: var(--surface);
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .roi-card:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .roi-card:last-child { border-radius: 0 var(--radius) var(--radius) 0; border-left: none; }
+    .roi-card:nth-child(2) { border-left: none; }
+
+    .roi-value {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .roi-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.5;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── COSTO ─── */
+    .cost-list {
+      margin-top: 44px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .cost-item {
+      padding: 22px 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--surface);
+    }
+
+    .cost-item + .cost-item { border-top: 1px solid var(--border); }
+
+    .cost-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    .cost-item strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .cost-item p { font-size: 14px; }
+
+    /* ─── PRECIO ─── */
+    #precio { background: var(--surface-2); }
+
+    .price-card {
+      margin-top: 44px;
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .price-body {
+      padding: 48px 52px;
+      background: var(--accent-soft);
+    }
+
+    .price-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .price-amount {
+      font-size: clamp(56px, 10vw, 80px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .price-amount sup {
+      font-size: 32px;
+      font-weight: 600;
+      vertical-align: super;
+      margin-right: 4px;
+    }
+
+    .price-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    .price-footer {
+      padding: 20px 52px;
+      background: var(--surface);
+      border-top: 1px solid var(--accent-border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .price-footer-icon { font-size: 16px; flex-shrink: 0; }
+
+    .price-footer p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .price-footer strong { color: var(--text); }
+
+    /* ─── CIERRE ─── */
+    #cierre {
+      text-align: center;
+      padding: 128px 0;
+      border-bottom: none;
+    }
+
+    #cierre h2 {
+      font-size: clamp(28px, 4.5vw, 46px);
+      max-width: 560px;
+      margin: 0 auto 20px;
+    }
+
+    #cierre h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    #cierre > .container > p {
+      font-size: 17px;
+      max-width: 440px;
+      margin: 0 auto 52px;
+    }
+
+    .close-sig {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .close-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .close-sig span {
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── HELPERS ─── */
+    .section-intro { max-width: 560px; }
+    .section-intro h2 { margin-bottom: 10px; }
+
+    .divider {
+      width: 36px;
+      height: 2px;
+      background: var(--accent);
+      margin: 18px 0 28px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      section { padding: 64px 0; }
+      #hero { padding: 80px 0 64px; }
+
+      .problem-grid { grid-template-columns: 1fr; }
+      .problem-item { border-radius: 0 !important; border-left: 1px solid var(--border) !important; border-top: 1px solid var(--border) !important; }
+      .problem-item:first-child { border-top: 1px solid var(--border) !important; border-radius: var(--radius) var(--radius) 0 0 !important; }
+      .problem-item:last-child { border-radius: 0 0 var(--radius) var(--radius) !important; }
+
+      .two-col { grid-template-columns: 1fr; }
+
+      .roi-grid { grid-template-columns: 1fr; }
+      .roi-card { border-radius: 0 !important; border-left: 1px solid var(--border) !important; }
+      .roi-card:first-child { border-radius: var(--radius) var(--radius) 0 0 !important; }
+      .roi-card:last-child { border-radius: 0 0 var(--radius) var(--radius) !important; border-top: none !important; }
+      .roi-card:nth-child(2) { border-left: 1px solid var(--border) !important; border-top: none !important; }
+
+      .price-body { padding: 32px 24px; }
+      .price-footer { padding: 20px 24px; }
+
+      .hero-meta { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <div class="nav-logo">Beef <span>House</span></div>
+      <div class="nav-badge">Propuesta Piloto · 2025</div>
+    </div>
+  </nav>
+
+
+  <!-- 1. HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-tag">Panel operativo en vivo ya disponible</div>
+      <h1>De datos dispersos a<br /><em>decisiones claras</em><br />en tiempo real</h1>
+      <p class="hero-sub">
+        Centraliza tus operaciones, detecta problemas antes y toma decisiones con impacto directo en tus ingresos.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <strong>+3–8%</strong>
+          <span>Mejora en margen</span>
+        </div>
+        <div class="hero-meta-item">
+          <strong>20 hrs</strong>
+          <span>Ahorradas al mes</span>
+        </div>
+        <div class="hero-meta-item">
+          <strong>Días</strong>
+          <span>No meses</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 2. PROBLEMA -->
+  <section id="problema">
+    <div class="container">
+      <div class="section-intro">
+        <div class="label">El problema</div>
+        <h2>Tienes los datos. No los estás usando.</h2>
+        <div class="divider"></div>
+        <p>La información existe. El problema es que llega tarde, está fragmentada, y no genera decisiones.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-item">
+          <div class="problem-icon">📅</div>
+          <div>
+            <strong>Información diaria, decisiones mensuales</strong>
+            <p>Para cuando ves el reporte, la oportunidad ya pasó.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">📊</div>
+          <div>
+            <strong>Dependencia de Excel manual</strong>
+            <p>Cada análisis requiere horas de trabajo que podrían destinarse a operar.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">🏪</div>
+          <div>
+            <strong>Sin visibilidad entre locales</strong>
+            <p>No puedes comparar rendimiento ni detectar desvíos entre unidades.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">⏳</div>
+          <div>
+            <strong>Tiempo perdido en análisis</strong>
+            <p>El equipo gasta energía consolidando datos en lugar de usarlos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 3. DEMO -->
+  <section id="demo">
+    <div class="container">
+      <div class="section-intro">
+        <div class="label">Lo que ya viste</div>
+        <h2>Tu sistema operativo, ya construido.</h2>
+        <div class="divider"></div>
+        <p>El MVP que presentamos no es una promesa. Es una base funcional construida con tus propios datos.</p>
+      </div>
+      <div class="demo-cards">
+        <div class="demo-card">
+          <div class="demo-number">1</div>
+          <div>
+            <h3>Panel centralizado de todas las unidades</h3>
+            <p>Una sola vista para ventas, productos y rendimiento por local. Sin cambiar entre archivos.</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-number">2</div>
+          <div>
+            <h3>Identificación automática de productos clave</h3>
+            <p>El sistema clasifica tus productos por rentabilidad y volumen. Sabes en qué enfocarte sin hacer cálculos.</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-number">3</div>
+          <div>
+            <h3>Recomendaciones accionables en tiempo real</h3>
+            <p>No solo métricas: el sistema te dice qué hacer. Qué ajustar, qué eliminar, qué potenciar.</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-number">4</div>
+          <div>
+            <h3>Visualización clara del rendimiento por local</h3>
+            <p>Comparativas, tendencias y alertas. Todo en un lugar, siempre actualizado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 4. VALOR -->
+  <section id="valor">
+    <div class="container">
+      <div class="section-intro">
+        <div class="label">Impacto real</div>
+        <h2>No features. Resultados.</h2>
+        <div class="divider"></div>
+        <p>Cada módulo del sistema está pensado para generar un resultado concreto en tu operación.</p>
+      </div>
+      <div class="value-list">
+        <div class="value-item">
+          <div class="value-arrow">→</div>
+          <div>
+            <h3>Detectar productos no rentables en días, no meses</h3>
+            <p>Saber qué está drenando tu margen antes de que sea un problema acumulado.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-arrow">→</div>
+          <div>
+            <h3>Ajustar precios basado en datos reales</h3>
+            <p>Decisiones de pricing respaldadas por comportamiento real, no intuición.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-arrow">→</div>
+          <div>
+            <h3>Reducir tiempo operativo en análisis manual</h3>
+            <p>Lo que hoy toma horas, mañana está listo al abrir el panel.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-arrow">→</div>
+          <div>
+            <h3>Tomar decisiones sin esperar reportes mensuales</h3>
+            <p>Velocidad real. Información fresca cuando la necesitas, no cuando alguien la prepara.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 5. ALCANCE -->
+  <section id="alcance">
+    <div class="container">
+      <div class="section-intro">
+        <div class="label">Fase Piloto</div>
+        <h2>Arrancamos enfocados. Escalamos después.</h2>
+        <div class="divider"></div>
+        <p>El piloto está diseñado para validar el sistema en tu operación real, con el mínimo de fricción.</p>
+      </div>
+      <div class="phase-block">
+        <div class="phase-header">
+          <div class="phase-dot"></div>
+          <h3>Beef House — Local Principal · Piura</h3>
+        </div>
+        <div class="phase-items">
+          <div class="phase-item">Implementación en Beef House (local principal)</div>
+          <div class="phase-item">Integración con estructura actual de datos en Excel</div>
+          <div class="phase-item">Dashboard operativo personalizado para tu negocio</div>
+          <div class="phase-item">Sistema de insights y recomendaciones automáticas</div>
+          <div class="phase-item">Arquitectura lista para escalar a más locales</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 6 & 7. QUÉ INCLUYE / QUÉ NO -->
+  <section id="scope">
+    <div class="container">
+      <div class="section-intro">
+        <div class="label">Alcance</div>
+        <h2>Qué entra. Qué no entra.</h2>
+        <div class="divider"></div>
+        <p>Transparencia total desde el inicio. El piloto está acotado para moverse rápido y validar resultados.</p>
+      </div>
+      <div class="two-col">
+        <div class="include-block">
+          <div class="block-header"><h3>Incluido</h3></div>
+          <ul class="block-list">
+            <li>Dashboard operativo</li>
+            <li>Procesamiento de datos (Excel → sistema)</li>
+            <li>Clasificación automática de productos</li>
+            <li>Recomendaciones inteligentes</li>
+            <li>Base escalable a más locales</li>
+          </ul>
+        </div>
+        <div class="exclude-block">
+          <div class="block-header"><h3>No incluido (por ahora)</h3></div>
+          <ul class="block-list">
+            <li>Integración directa con POS</li>
+            <li>Automatización de inventario en tiempo real</li>
+            <li>Conexiones con APIs externas complejas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 8. ROADMAP -->
+  <section id="roadmap">
+    <div class="container">
+      <div class="section-intro">
+        <div class="label">Roadmap</div>
+        <h2>Esto es el comienzo, no el techo.</h2>
+        <div class="divider"></div>
+        <p>El piloto construye los cimientos. Lo que sigue es escala.</p>
+      </div>
+      <div class="roadmap-track">
+        <div class="roadmap-item now">
+          <div class="roadmap-phase">Ahora · Piloto</div>
+          <h3>Sistema operativo base</h3>
+          <p>Dashboard, análisis de productos, insights automáticos. Un local, impacto inmediato.</p>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Siguiente fase</div>
+          <h3>Integración con sistema de ventas</h3>
+          <p>Conexión directa con POS para eliminar la carga manual por completo.</p>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Mediano plazo</div>
+          <h3>Automatización e inteligencia avanzada</h3>
+          <p>Predicciones de demanda, alertas proactivas y optimización de inventario.</p>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Escala</div>
+          <h3>Expansión a todas las unidades</h3>
+          <p>Red completa de locales operando desde un único panel de control centralizado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 9. ROI -->
+  <section id="roi">
+    <div class="container">
+      <div class="section-intro">
+        <div class="label">Retorno esperado</div>
+        <h2>Los números detrás de la decisión.</h2>
+        <div class="divider"></div>
+        <p>Estimaciones conservadoras basadas en operaciones similares. El potencial real depende de cuánto optimizas.</p>
+      </div>
+      <div class="roi-grid">
+        <div class="roi-card">
+          <div class="roi-value">+3–8%</div>
+          <div class="roi-label">Mejora en margen operativo</div>
+        </div>
+        <div class="roi-card">
+          <div class="roi-value">10–20h</div>
+          <div class="roi-label">Ahorro mensual en análisis manual</div>
+        </div>
+        <div class="roi-card">
+          <div class="roi-value">Semanal</div>
+          <div class="roi-label">Frecuencia de decisiones informadas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 10. COSTO DE NO HACERLO -->
+  <section id="costo">
+    <div class="container">
+      <div class="section-intro">
+        <div class="label">El costo invisible</div>
+        <h2>No actuar también tiene precio.</h2>
+        <div class="divider"></div>
+        <p>Cada mes sin visibilidad operativa es un mes operando a ciegas.</p>
+      </div>
+      <div class="cost-list">
+        <div class="cost-item">
+          <div class="cost-icon">📉</div>
+          <div>
+            <strong>Decisiones con data atrasada</strong>
+            <p>Seguir reaccionando a lo que pasó hace 30 días en lugar de actuar sobre lo que pasa hoy.</p>
+          </div>
+        </div>
+        <div class="cost-item">
+          <div class="cost-icon">⚙️</div>
+          <div>
+            <strong>Procesos manuales que escalan mal</strong>
+            <p>Cada local nuevo multiplica el problema. Excel no está diseñado para crecer contigo.</p>
+          </div>
+        </div>
+        <div class="cost-item">
+          <div class="cost-icon">💸</div>
+          <div>
+            <strong>Pérdida silenciosa en productos no optimizados</strong>
+            <p>Productos que parecen rentables y no lo son. Oportunidades que no ves hasta que es tarde.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 11. PRECIO -->
+  <section id="precio">
+    <div class="container">
+      <div class="section-intro">
+        <div class="label">Inversión</div>
+        <h2>Un piloto acotado. Un impacto concreto.</h2>
+        <div class="divider"></div>
+        <p>Precio fijo para el piloto. Sin sorpresas, sin compromisos ocultos.</p>
+      </div>
+      <div class="price-card">
+        <div class="price-body">
+          <div class="price-eyebrow">Implementación piloto</div>
+          <div class="price-amount"><sup>$</sup>XXX</div>
+          <p class="price-desc">Pago único · Incluye todo el alcance descrito · Sin costos mensuales durante el piloto</p>
+        </div>
+        <div class="price-footer">
+          <div class="price-footer-icon">🔄</div>
+          <p><strong>Escalable a modelo mensual</strong> luego del piloto, según resultados y expansión a nuevos locales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 12. CIERRE -->
+  <section id="cierre">
+    <div class="container">
+      <h2>Esto no es un sistema más.<br /><em>Es una forma de operar.</em></h2>
+      <p>
+        Beef House tiene los datos, el equipo y la escala para tomar mejores decisiones.<br />
+        Este sistema solo hace que eso sea posible.
+      </p>
+      <div class="close-sig">
+        <div class="close-dot"></div>
+        <span>Propuesta preparada exclusivamente para Beef House · Piura, 2025</span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
