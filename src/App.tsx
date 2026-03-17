@@ -136,6 +136,14 @@ export default function App() {
               <Upload size={13} />
               <span className="hidden sm:inline">Importar Excel</span>
             </button>
+            <a
+              href="/propuesta.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs text-amber-500 hover:text-amber-400 hover:bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-md transition-all duration-150"
+            >
+              Ver propuesta
+            </a>
           </div>
         </header>
 
